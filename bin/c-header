@@ -1,0 +1,22 @@
+#!/bin/sh
+
+file_name="$1"
+
+guard_name=_$( \
+	printf %s $file_name | \
+	sed 's/[^a-zA-Z]/_/g' | \
+       	tr '[:lower:]' '[:upper:]' \
+)_
+
+cat >> $file_name << EOF
+#ifndef $guard_name
+#define $guard_name
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+#endif
+EOF
